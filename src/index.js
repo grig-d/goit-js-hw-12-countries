@@ -1,32 +1,78 @@
+import articlesTmpl from './templates/articles.hbs';
 import './styles.css';
-
+import NewsApiService from './js/news-service';
 ////
-import '@pnotify/core/dist/PNotify.css';
-import '@pnotify/mobile/dist/PNotifyMobile.css';
-import '@pnotify/core/dist/Material.css';
-import 'material-design-icons/iconfont/material-icons.css';
-import { defaults, error, notice, success } from '@pnotify/core';
-defaults.styling = 'material';
-defaults.icons = 'material';
-defaults.width = '400px';
-defaults.delay = 1000;
-////
-
-const messages = {
-  success: { text: 'Search completed successfully!' },
-  notice: { text: 'Please, specify your request' },
-  error: { text: 'Sorry, incorrect request' },
-};
 
 const refs = {
-  successBtn: document.querySelector('#success'),
-  noticeBtn: document.querySelector('#notice'),
-  errorBtn: document.querySelector('#error'),
+  searchForm: document.querySelector('.js-search-form'),
+  articlesContainer: document.querySelector('.js-articles-container'),
+  loadMoreBtn: document.querySelector('[data-action="load-more"]'),
 };
 
-refs.successBtn.addEventListener('click', () => success(messages.success));
-refs.noticeBtn.addEventListener('click', () => notice(messages.notice));
-refs.errorBtn.addEventListener('click', () => error(messages.error));
+// делаем экземпляр, чтобы получить объект с методами и свойствами
+const newsApiService = new NewsApiService();
+
+refs.searchForm.addEventListener('submit', onSearch);
+refs.loadMoreBtn.addEventListener('click', onLoadMore);
+
+function onSearch(e) {
+  e.preventDefault();
+
+  newsApiService.query = e.currentTarget.elements.query.value; // при сабмите формы при помощи сеттера получаем значение запроса
+
+  if (newsApiService.query.trim() === '') {
+    return;
+  }
+  newsApiService.resetPage(); // сбрасываем номер страницы при изменении запроса
+  newsApiService.fetchArticles().then(articles => {
+    clearArticlesContainer();
+    appendArticlesMarkup(articles);
+  });
+}
+
+// для пагинации надо сохранять searchQuery
+function onLoadMore() {
+  newsApiService.fetchArticles().then(appendArticlesMarkup);
+}
+
+function appendArticlesMarkup(articles) {
+  refs.articlesContainer.insertAdjacentHTML(
+    'beforeend',
+    articlesTmpl(articles),
+  );
+}
+
+// при новом запросе очищаем контейнер от предыдущих статей
+function clearArticlesContainer() {
+  refs.articlesContainer.innerHTML = '';
+}
+////
+// import '@pnotify/core/dist/PNotify.css';
+// import '@pnotify/mobile/dist/PNotifyMobile.css';
+// import '@pnotify/core/dist/Material.css';
+// import 'material-design-icons/iconfont/material-icons.css';
+// import { defaults, error, notice, success } from '@pnotify/core';
+// defaults.styling = 'material';
+// defaults.icons = 'material';
+// defaults.width = '400px';
+// defaults.delay = 1000;
+// ////
+
+// const messages = {
+//   success: { text: 'Search completed successfully!' },
+//   notice: { text: 'Please, specify your request' },
+//   error: { text: 'Sorry, incorrect request' },
+// };
+
+// const refs = {
+//   successBtn: document.querySelector('#success'),
+//   noticeBtn: document.querySelector('#notice'),
+//   errorBtn: document.querySelector('#error'),
+// };
+
+// refs.successBtn.addEventListener('click', () => success(messages.success));
+// refs.noticeBtn.addEventListener('click', () => notice(messages.notice));
+// refs.errorBtn.addEventListener('click', () => error(messages.error));
 ////
 
 // Есть файл fetchCountries.js с дефолтным экспортом функции fetchCountries(searchQuery),
@@ -49,4 +95,3 @@ refs.errorBtn.addEventListener('click', () => error(messages.error));
 // 2 Когда найдена необходимая страна добавляем сообщение об успехе
 // 3 Если от 2 до 10 результатов просим конкретизировать запрос
 // Уточните запрос
-
