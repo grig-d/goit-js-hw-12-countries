@@ -13,9 +13,9 @@ export default class NewsApiService {
 
     return fetch(url)
       .then(response => response.json())
-        .then(data => {
-            this.incrementPage();
-            return data.articles;
+      .then(data => {
+        this.incrementPage();
+        return data.articles;
       });
   }
 
@@ -25,8 +25,8 @@ export default class NewsApiService {
 
   resetPage() {
     this.page = 1;
-    }
-    
+  }
+
   get query() {
     return this.searchQuery;
   }
@@ -35,3 +35,4 @@ export default class NewsApiService {
     this.searchQuery = newQuery;
   }
 }
+

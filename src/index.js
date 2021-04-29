@@ -95,3 +95,16 @@ function clearArticlesContainer() {
 // 2 Когда найдена необходимая страна добавляем сообщение об успехе
 // 3 Если от 2 до 10 результатов просим конкретизировать запрос
 // Уточните запрос
+
+
+//
+
+const name = 'germany';
+const url = `https://restcountries.eu/rest/v2/name/${name}`;
+
+fetch(url)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => {
+    console.log('Error:', error);
+  });
