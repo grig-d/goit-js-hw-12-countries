@@ -5,14 +5,19 @@ import { defaults, error, notice, success } from '@pnotify/core';
 defaults.styling = 'material';
 defaults.icons = 'material';
 defaults.width = '400px';
-defaults.delay = 1000;
+defaults.delay = 1500;
 
 function notify(messageType) {
   if (messageType === 'success') {
     return success({ text: 'Search completed successfully!' });
   }
-  if (messageType === 'notice') {
+  if (messageType === 'specify') {
     return notice({ text: 'Please, specify your request' });
+  }
+  if (messageType === 'notice') {
+    return notice({
+      text: 'Too many matches found. Please, specify your request',
+    });
   }
   if (messageType === 'error') {
     return error({ text: 'Sorry, incorrect request' });

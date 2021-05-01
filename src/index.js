@@ -1,53 +1,9 @@
 import './styles.css';
 import debounce from 'lodash.debounce';
 import refs from './js/refs';
-
-
-
-import notify from './js/notifications';
-
-
-
-import coutryCardTemplate from './templates/country.hbs';
-
-import fetchCountries from './js/fetch-countries';
-
-
-
 import searchCountry from './js/search-country';
 
 refs.searchForm.addEventListener('input', debounce(searchCountry, 500));
-
-//   if (newsApiService.query.trim() === '') {
-//     return;
-//   }
-//   newsApiService.resetPage(); // сбрасываем номер страницы при изменении запроса
-//   newsApiService.fetchArticles().then(articles => {
-//     clearArticlesContainer();
-//     appendArticlesMarkup(articles);
-//   });
-// }
-
-// // для пагинации надо сохранять searchQuery
-// function onLoadMore() {
-//   newsApiService.fetchArticles().then(appendArticlesMarkup);
-// }
-
-// function appendArticlesMarkup(articles) {
-//   refs.articlesContainer.insertAdjacentHTML(
-//     'beforeend',
-//     articlesTmpl(articles),
-//   );
-// }
-
-// // при новом запросе очищаем контейнер от предыдущих статей
-// function clearArticlesContainer() {
-//   refs.articlesContainer.innerHTML = '';
-// }
-
-// refs2.successBtn.addEventListener('click', () => notify('success'));
-// refs2.noticeBtn.addEventListener('click', () => notify('notice'));
-// refs2.errorBtn.addEventListener('click', () => notify('error'));
 
 // Есть файл fetchCountries.js с дефолтным экспортом функции fetchCountries(searchQuery),
 // возвращающей промис с массивом стран, результат запроса к API.
@@ -68,4 +24,3 @@ refs.searchForm.addEventListener('input', debounce(searchCountry, 500));
 // 1 Если ввод пользователя пустой или некорректный
 // 2 Когда найдена необходимая страна добавляем сообщение об успехе
 // 3 Если от 2 до 10 результатов просим конкретизировать запрос
-// Уточните запрос
