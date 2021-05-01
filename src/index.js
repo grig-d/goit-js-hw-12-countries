@@ -1,26 +1,22 @@
 import './styles.css';
+import debounce from 'lodash.debounce';
+import refs from './js/refs';
+
+
+
 import notify from './js/notifications';
 
-import debounce from 'lodash.debounce';
+
 
 import coutryCardTemplate from './templates/country.hbs';
 
 import fetchCountries from './js/fetch-countries';
 
-import refs from './js/refs';
+
 
 import searchCountry from './js/search-country';
 
 refs.searchForm.addEventListener('input', debounce(searchCountry, 500));
-
-  const searchQuery = refs.searchForm;
-  console.log(searchQuery);
-
-// function onSearch(e) {
-//   e.preventDefault();
-
-
-//   // const searchQuery = refs.searchForm.currentTarget.elements.query.value; // при сабмите формы при помощи сеттера получаем значение запроса
 
 //   if (newsApiService.query.trim() === '') {
 //     return;
@@ -49,13 +45,9 @@ refs.searchForm.addEventListener('input', debounce(searchCountry, 500));
 //   refs.articlesContainer.innerHTML = '';
 // }
 
-
-
 // refs2.successBtn.addEventListener('click', () => notify('success'));
 // refs2.noticeBtn.addEventListener('click', () => notify('notice'));
 // refs2.errorBtn.addEventListener('click', () => notify('error'));
-////
-
 
 // Есть файл fetchCountries.js с дефолтным экспортом функции fetchCountries(searchQuery),
 // возвращающей промис с массивом стран, результат запроса к API.

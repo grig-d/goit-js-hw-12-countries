@@ -1,13 +1,13 @@
-<div class="country-card">
-    <h2>{{name}}</h2>
-    <div class="country-data">
-        <div class="country-info">
-            <p class="text"><span class="data-name">Capital: </span>{{capital}}</p>
-            <p class="text"><span class="data-name">Population: </span>{{population}}</p>
-            <p class="text"><span class="data-name">Languages: </span></p>
-            <ul>
+<div class="country__card">
+    <h2 class="country__name">{{name}}</h2>
+    <div class="country__data">
+        <div class="country__info">
+            <p class="data__text"><span class="data__name">Capital: </span>{{capital}}</p>
+            <p class="data__text"><span class="data__name">Population: </span>{{population}}</p>
+            <p class="data__text language__heading"><span class="data__name">Languages: </span></p>
+            <ul class="language__list">
                 {{#each languages}}
-                <li>{{this.name}}</li>
+                <li class="language__item">{{this.name}}</li>
                 {{/each}}
             </ul>
         </div>
